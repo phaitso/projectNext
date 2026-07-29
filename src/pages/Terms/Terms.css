@@ -1,0 +1,15 @@
+/* ===== Terms ===== */
+.terms { padding: 20px 0 40px; }
+.terms-container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+.terms-header { margin-bottom: 24px; }
+.terms-title { font-family: var(--font-display); font-size: var(--fs-3xl); font-weight: 700; color: var(--text); letter-spacing: -0.03em; }
+.terms-subtitle { font-size: var(--fs-sm); color: var(--text-secondary); margin-top: 8px; line-height: 1.6; font-family: var(--font-body); }
+.terms-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+.terms-item { display: flex; gap: 14px; padding: 18px; background: var(--card); border: 1px solid var(--border); border-radius: var(--r-md); transition: all var(--t-fast); }
+.terms-item:hover { border-color: var(--border-dark); box-shadow: var(--shadow-sm); }
+.terms-item-icon { width: 40px; height: 40px; border-radius: var(--r-md); background: var(--accent-light); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+.terms-item-content { flex: 1; }
+.terms-item-title { font-family: var(--font-display); font-size: var(--fs-sm); font-weight: 600; color: var(--text); margin-bottom: 6px; letter-spacing: -0.01em; }
+.terms-item-text { font-size: var(--fs-sm); color: var(--text-secondary); line-height: 1.6; font-family: var(--font-body); }
+.terms-footer-note { background: var(--accent-light); border: 1px solid var(--accent-border); border-radius: var(--r-md); padding: 16px 20px; }
+.terms-footer-note p { font-size: var(--fs-sm); color: var(--text-secondary); line-height: 1.6; margin: 0; font-family: var(--font-body); }
