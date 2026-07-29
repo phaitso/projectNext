@@ -4,7 +4,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { FaSearch, FaSlidersH, FaTimes, FaSort, FaChevronDown } from "react-icons/fa";
-import SearchBar from "../../components/SearchBar/SearchBar";
 import FilterPanel from "../../components/FilterPanel/FilterPanel";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import Pagination from "../../components/Pagination/Pagination";
@@ -110,14 +109,6 @@ function Marketplace() {
         <div className="marketplace-header">
           <h1 className="marketplace-title">Marketplace</h1>
           <p className="marketplace-subtitle">{filteredProducts.length} products from verified students</p>
-        </div>
-
-        {/* Search */}
-        <div className="marketplace-search">
-          <SearchBar
-            onSearch={(query) => setFilters({ ...filters, search: query })}
-            placeholder="Search by product name, category, university..."
-          />
         </div>
 
         {/* Filter chips row */}
