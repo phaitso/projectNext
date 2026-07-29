@@ -14,7 +14,6 @@ import {
 } from "react-icons/fa";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import CategoryCard from "../../components/CategoryCard/CategoryCard";
-import Hero from "../../components/Hero/Hero";
 import { useApp } from "../../context/AppContext";
 import { getProductById } from "../../data/products";
 import {
@@ -71,16 +70,6 @@ function Home() {
 
   return (
     <div className="home page-fade">
-      <Hero
-        title="CamStudent Market —"
-        titleAccent="buy & sell secondhand school supplies"
-        subtitle="A trusted campus marketplace where verified students trade textbooks, electronics, and supplies at fair prices. Save money, reduce waste, and connect with peers across Cambodian universities."
-        ctaLabel="Browse Marketplace"
-        ctaTo="/marketplace"
-        ctaSecondaryLabel="Sell an Item"
-        ctaSecondaryTo="/sell"
-      />
-
       {/* ===== Quick Search Bar ===== */}
       <section className="home-search-section">
         <div className="container">
