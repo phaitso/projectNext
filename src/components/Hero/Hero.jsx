@@ -10,7 +10,15 @@ import { products } from "../../data/products";
 import { users } from "../../data/users";
 import "./Hero.css";
 
-function Hero() {
+function Hero({
+  title = "The campus marketplace",
+  titleAccent = "built for students.",
+  subtitle = "Buy and sell textbooks, electronics, and supplies with verified peers across Cambodian universities. No middlemen, no markup.",
+  ctaLabel = "Join Now",
+  ctaTo = "/register",
+  ctaSecondaryLabel = "Browse Products",
+  ctaSecondaryTo = "/marketplace",
+}) {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
@@ -43,13 +51,12 @@ function Hero() {
 
           {/* Headline */}
           <h1 className="hero-title">
-            The campus marketplace
-            <span className="hero-title-accent">built for students.</span>
+            {title}
+            <span className="hero-title-accent">{titleAccent}</span>
           </h1>
 
           <p className="hero-subtitle">
-            Buy and sell textbooks, electronics, and supplies with verified
-            peers across Cambodian universities. No middlemen, no markup.
+            {subtitle}
           </p>
 
           {/* Search bar */}
@@ -80,11 +87,11 @@ function Hero() {
 
           {/* CTA */}
           <div className="hero-cta-row">
-            <Link to="/register" className="hero-cta">
-              Join Now <FaArrowRight />
+            <Link to={ctaTo} className="hero-cta">
+              {ctaLabel} <FaArrowRight />
             </Link>
-            <Link to="/marketplace" className="hero-cta-secondary">
-              Browse Products
+            <Link to={ctaSecondaryTo} className="hero-cta-secondary">
+              {ctaSecondaryLabel}
             </Link>
           </div>
         </div>
