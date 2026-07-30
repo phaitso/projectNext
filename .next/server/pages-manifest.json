@@ -4,5 +4,6 @@
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
   "/marketplace": "pages/marketplace.js",
-  "/sell": "pages/sell.js"
+  "/sell": "pages/sell.js",
+  "/about": "pages/about.js"
 }
