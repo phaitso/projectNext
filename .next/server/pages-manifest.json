@@ -6,5 +6,6 @@
   "/marketplace": "pages/marketplace.js",
   "/sell": "pages/sell.js",
   "/about": "pages/about.js",
-  "/wishlist": "pages/wishlist.js"
+  "/wishlist": "pages/wishlist.js",
+  "/chat": "pages/chat.js"
 }
