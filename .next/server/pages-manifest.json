@@ -3,5 +3,6 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
-  "/marketplace": "pages/marketplace.js"
+  "/marketplace": "pages/marketplace.js",
+  "/sell": "pages/sell.js"
 }
