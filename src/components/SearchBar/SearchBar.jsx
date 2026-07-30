@@ -7,24 +7,19 @@
 //   - placeholder: custom placeholder text (default provided)
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 import { FaSearch } from "react-icons/fa";
-import "./SearchBar.css";
 
 function SearchBar({ onSearch, placeholder = "Search products, categories, universities..." }) {
-  // State: the text the user types into the search field
   const [query, setQuery] = useState("");
-  const navigate = useNavigate();
+  const router = useRouter();
 
-  // Handle form submission (Enter key or button click)
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent the page from reloading
+    e.preventDefault();
     if (onSearch) {
-      // If a custom callback is provided, call it
       onSearch(query);
     } else {
-      // Otherwise, navigate to the marketplace with the search query
-      navigate(`/marketplace?search=${encodeURIComponent(query)}`);
+      router.push(`/marketplace?search=${encodeURIComponent(query)}`);
     }
   };
 

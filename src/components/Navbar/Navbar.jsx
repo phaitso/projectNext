@@ -2,7 +2,8 @@
 // Floating glassmorphism navigation with search, notification dropdown, profile dropdown.
 
 import { useState, useEffect, useRef } from "react";
-import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import {
   FaBars, FaTimes, FaBell, FaUser, FaSignOutAlt, FaStore,
   FaSearch, FaHeart, FaComment, FaChevronDown, FaTag,
@@ -11,7 +12,6 @@ import {
 import { useApp } from "../../context/AppContext";
 import { notifications as dummyNotifications } from "../../data/notifications";
 import { categories } from "../../data/products";
-import "./Navbar.css";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -25,18 +25,18 @@ function Navbar() {
   const profileRef = useRef(null);
   const notifRef = useRef(null);
   const { currentUser, logout, wishlist } = useApp();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
 
   const unreadCount = notifs.filter((n) => !n.read).length;
   const wishlistCount = wishlist.length;
+  const pathname = router.pathname;
 
   useEffect(() => {
     setProfileOpen(false);
     setMenuOpen(false);
     setCatOpen(false);
     setNotifOpen(false);
-  }, [location.pathname]);
+  }, [pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -60,13 +60,13 @@ function Navbar() {
 
   const handleLogout = () => {
     logout();
-    navigate("/");
+    router.push("/");
   };
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/marketplace?search=${encodeURIComponent(searchQuery)}`);
+      router.push(`/marketplace?search=${encodeURIComponent(searchQuery)}`);
     }
   };
 
@@ -105,7 +105,7 @@ function Navbar() {
       <div className="nb-bar">
         <div className="nb-inner">
           {/* Logo */}
-          <Link to="/" className="nb-logo" aria-label="StudentMarket home">
+          <Link href="/" className="nb-logo" aria-label="StudentMarket home">
             <FaStore className="nb-logo-icon" />
             <span className="nb-logo-text">StudentMarket</span>
           </Link>
@@ -113,14 +113,13 @@ function Navbar() {
           {/* Nav links */}
           <nav className="nb-nav" aria-label="Primary">
             {navLinks.map((link) => (
-              <NavLink
+              <Link
                 key={link.to}
-                to={link.to}
-                end={link.to === "/"}
-                className={({ isActive }) => isActive ? "nb-nav-link active" : "nb-nav-link"}
+                href={link.to}
+                className={`nb-nav-link ${pathname === link.to ? "active" : ""}`}
               >
                 {link.label}
-              </NavLink>
+              </Link>
             ))}
           </nav>
 
@@ -151,7 +150,7 @@ function Navbar() {
             </button>
 
             {/* Wishlist */}
-            <Link to="/wishlist" className="nb-icon-btn" aria-label={`Wishlist, ${wishlistCount} items`}>
+            <Link href="/wishlist" className="nb-icon-btn" aria-label={`Wishlist, ${wishlistCount} items`}>
               <FaHeart />
               {wishlistCount > 0 && <span className="nb-badge">{wishlistCount}</span>}
             </Link>
@@ -180,7 +179,7 @@ function Navbar() {
                   <div className="nb-notif-list">
                     {notifs.slice(0, 5).map((n) => (
                       <Link
-                        to="/notifications"
+                        href="/notifications"
                         key={n.id}
                         className={`nb-notif-item ${!n.read ? "unread" : ""}`}
                         onClick={() => setNotifOpen(false)}
@@ -196,7 +195,7 @@ function Navbar() {
                       </Link>
                     ))}
                   </div>
-                  <Link to="/notifications" className="nb-notif-viewall" onClick={() => setNotifOpen(false)}>
+                  <Link href="/notifications" className="nb-notif-viewall" onClick={() => setNotifOpen(false)}>
                     View all notifications
                   </Link>
                 </div>
@@ -204,7 +203,7 @@ function Navbar() {
             </div>
 
             {/* Chat */}
-            <Link to="/chat" className="nb-icon-btn nb-hide-sm" aria-label="Chat">
+            <Link href="/chat" className="nb-icon-btn nb-hide-sm" aria-label="Chat">
               <FaComment />
             </Link>
 
@@ -229,9 +228,9 @@ function Navbar() {
                         <p className="nb-dropdown-email">{currentUser.email}</p>
                       </div>
                     </div>
-                    <Link to="/profile" className="nb-dropdown-item"><FaUser /> My Profile</Link>
-                    <Link to="/my-products" className="nb-dropdown-item"><FaStore /> My Products</Link>
-                    <Link to="/wishlist" className="nb-dropdown-item"><FaHeart /> Wishlist</Link>
+                    <Link href="/profile" className="nb-dropdown-item"><FaUser /> My Profile</Link>
+                    <Link href="/my-products" className="nb-dropdown-item"><FaStore /> My Products</Link>
+                    <Link href="/wishlist" className="nb-dropdown-item"><FaHeart /> Wishlist</Link>
                     <button className="nb-dropdown-item nb-dropdown-logout" onClick={handleLogout}>
                       <FaSignOutAlt /> Logout
                     </button>
@@ -239,7 +238,7 @@ function Navbar() {
                 )}
               </div>
             ) : (
-              <Link to="/login" className="nb-login-btn">Sign In</Link>
+              <Link href="/login" className="nb-login-btn">Sign In</Link>
             )}
 
             <button
@@ -261,7 +260,7 @@ function Navbar() {
             {categories.map((cat) => (
               <Link
                 key={cat}
-                to={`/marketplace?category=${encodeURIComponent(cat)}`}
+                href={`/marketplace?category=${encodeURIComponent(cat)}`}
                 className="nb-cat-item"
                 onClick={() => setCatOpen(false)}
               >
@@ -286,24 +285,23 @@ function Navbar() {
             />
           </form>
           {navLinks.map((link) => (
-            <NavLink
+            <Link
               key={link.to}
-              to={link.to}
-              end={link.to === "/"}
-              className={({ isActive }) => isActive ? "nb-mobile-link active" : "nb-mobile-link"}
+              href={link.to}
+              className={`nb-mobile-link ${pathname === link.to ? "active" : ""}`}
               onClick={() => setMenuOpen(false)}
             >
               {link.label}
-            </NavLink>
+            </Link>
           ))}
-          <Link to="/wishlist" className="nb-mobile-link" onClick={() => setMenuOpen(false)}>Wishlist</Link>
-          <Link to="/chat" className="nb-mobile-link" onClick={() => setMenuOpen(false)}>Chat</Link>
-          <Link to="/notifications" className="nb-mobile-link" onClick={() => setMenuOpen(false)}>Notifications</Link>
-          <Link to="/contact" className="nb-mobile-link" onClick={() => setMenuOpen(false)}>Contact</Link>
-          <Link to="/faq" className="nb-mobile-link" onClick={() => setMenuOpen(false)}>Help Center</Link>
-          <Link to="/admin" className="nb-mobile-link" onClick={() => setMenuOpen(false)}>Admin</Link>
+          <Link href="/wishlist" className="nb-mobile-link" onClick={() => setMenuOpen(false)}>Wishlist</Link>
+          <Link href="/chat" className="nb-mobile-link" onClick={() => setMenuOpen(false)}>Chat</Link>
+          <Link href="/notifications" className="nb-mobile-link" onClick={() => setMenuOpen(false)}>Notifications</Link>
+          <Link href="/contact" className="nb-mobile-link" onClick={() => setMenuOpen(false)}>Contact</Link>
+          <Link href="/faq" className="nb-mobile-link" onClick={() => setMenuOpen(false)}>Help Center</Link>
+          <Link href="/admin" className="nb-mobile-link" onClick={() => setMenuOpen(false)}>Admin</Link>
           {!currentUser && (
-            <Link to="/login" className="nb-mobile-link nb-mobile-signin" onClick={() => setMenuOpen(false)}>
+            <Link href="/login" className="nb-mobile-link nb-mobile-signin" onClick={() => setMenuOpen(false)}>
               Sign In
             </Link>
           )}

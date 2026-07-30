@@ -8,7 +8,6 @@
 //   - showClose: whether to show the X close button (default: true)
 
 import { FaTimes, FaCheckCircle } from "react-icons/fa";
-import "./Modal.css";
 
 function Modal({ isOpen, onClose, title, children, showClose = true }) {
   // If isOpen is false, don't render anything

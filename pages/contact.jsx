@@ -7,12 +7,10 @@ import {
   FaEnvelope, FaPhone, FaMapMarkerAlt, FaFacebookF,
   FaInstagram, FaTelegram, FaPaperPlane,
 } from "react-icons/fa";
-import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
-import Modal from "../../components/Modal/Modal";
-import "./Contact.css";
+import Breadcrumb from "../src/components/Breadcrumb/Breadcrumb";
+import Modal from "../src/components/Modal/Modal";
 
 function Contact() {
-  // State: form data
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,19 +18,14 @@ function Contact() {
     message: "",
   });
 
-  // State: show success modal
   const [showSuccess, setShowSuccess] = useState(false);
 
-  // Handle input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // In a real app, this would send data to a backend.
-    // Here we just show a success modal.
     setShowSuccess(true);
     setFormData({ name: "", email: "", subject: "", message: "" });
   };

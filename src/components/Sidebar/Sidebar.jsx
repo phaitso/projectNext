@@ -4,24 +4,23 @@
 // Props:
 //   - items: array of { label, to, icon } objects
 
-import { Link, useLocation } from "react-router-dom";
-import "./Sidebar.css";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 function Sidebar({ items, title = "Menu" }) {
-  const location = useLocation();
+  const router = useRouter();
 
   return (
     <aside className="sidebar">
       <h3 className="sidebar-title">{title}</h3>
       <ul className="sidebar-list">
         {items.map((item, index) => {
-          // Check if this link is the current page
-          const isActive = location.pathname === item.to;
+          const isActive = router.pathname === item.to;
 
           return (
             <li key={index}>
               <Link
-                to={item.to}
+                href={item.to}
                 className={`sidebar-link ${isActive ? "active" : ""}`}
               >
                 {item.icon && <span className="sidebar-icon">{item.icon}</span>}

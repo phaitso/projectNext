@@ -3,23 +3,23 @@
 // Premium search, trust badges, live statistics, category quick-pills.
 
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { FaSearch, FaGraduationCap, FaShieldAlt, FaArrowRight, FaUsers, FaBoxOpen, FaStar } from "react-icons/fa";
 import { categories } from "../../data/products";
 import { products } from "../../data/products";
 import { users } from "../../data/users";
-import "./Hero.css";
 
 function Hero() {
   const [query, setQuery] = useState("");
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (query.trim()) {
-      navigate(`/marketplace?search=${encodeURIComponent(query)}`);
+      router.push(`/marketplace?search=${encodeURIComponent(query)}`);
     } else {
-      navigate("/marketplace");
+      router.push("/marketplace");
     }
   };
 
@@ -71,7 +71,7 @@ function Hero() {
               <button
                 key={cat}
                 className="hero-cat-pill"
-                onClick={() => navigate(`/marketplace?category=${encodeURIComponent(cat)}`)}
+                onClick={() => router.push(`/marketplace?category=${encodeURIComponent(cat)}`)}
               >
                 {cat}
               </button>
@@ -80,10 +80,10 @@ function Hero() {
 
           {/* CTA */}
           <div className="hero-cta-row">
-            <Link to="/register" className="hero-cta">
+            <Link href="/register" className="hero-cta">
               Join Now <FaArrowRight />
             </Link>
-            <Link to="/marketplace" className="hero-cta-secondary">
+            <Link href="/marketplace" className="hero-cta-secondary">
               Browse Products
             </Link>
           </div>

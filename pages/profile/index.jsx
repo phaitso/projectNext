@@ -1,21 +1,21 @@
 // ===== Profile Page =====
 // Student identity: verification, trust score, reviews, sales, achievements.
 
-import { Link, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import {
   FaEdit, FaSignOutAlt, FaStar, FaStore, FaShoppingBag,
   FaShoppingCart, FaEnvelope, FaPhone, FaIdCard, FaUniversity,
   FaCheckCircle, FaAward, FaMedal, FaTrophy, FaShieldAlt,
   FaThumbsUp, FaHandshake, FaRocket,
 } from "react-icons/fa";
-import { useApp } from "../../context/AppContext";
-import { getProductById, getProductsBySeller } from "../../data/products";
-import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
-import "./Profile.css";
+import { useApp } from "../../src/context/AppContext";
+import { getProductById, getProductsBySeller } from "../../src/data/products";
+import Breadcrumb from "../../src/components/Breadcrumb/Breadcrumb";
 
 function Profile() {
   const { currentUser, logout } = useApp();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   if (!currentUser) {
     return (
@@ -23,14 +23,14 @@ function Profile() {
         <div className="profile-container">
           <div className="profile-not-logged-in">
             <h2>Please log in to view your profile</h2>
-            <Link to="/login" className="profile-login-prompt-btn">Login</Link>
+            <Link href="/login" className="profile-login-prompt-btn">Login</Link>
           </div>
         </div>
       </div>
     );
   }
 
-  const handleLogout = () => { logout(); navigate("/"); };
+  const handleLogout = () => { logout(); router.push("/"); };
 
   const myProducts = getProductsBySeller(currentUser.id);
   const soldCount = currentUser.productsSold || 0;
@@ -38,7 +38,6 @@ function Profile() {
   const boughtCount = currentUser.productsBought || 0;
   const rating = currentUser.rating || 5.0;
 
-  // Trust score: weighted formula based on activity
   const trustScore = Math.min(100, Math.round(
     (rating / 5) * 40 + Math.min(soldCount, 10) * 3 + Math.min(listedCount, 10) * 2 + Math.min(boughtCount, 5) * 2 + 10
   ));
@@ -50,7 +49,6 @@ function Profile() {
     { icon: <FaStar />, label: "Rating", value: `${rating} / 5`, color: "warning" },
   ];
 
-  // Achievements based on activity
   const achievements = [
     { icon: <FaCheckCircle />, title: "Verified Student", desc: "Identity confirmed", unlocked: currentUser.verified, color: "success" },
     { icon: <FaRocket />, title: "First Sale", desc: "Sold your first item", unlocked: soldCount >= 1, color: "primary" },
@@ -60,7 +58,6 @@ function Profile() {
     { icon: <FaAward />, title: "Marketplace Pro", desc: "15+ total transactions", unlocked: (soldCount + boughtCount) >= 15, color: "info" },
   ];
 
-  // Sample reviews
   const reviews = [
     { name: "Chan Dara", rating: 5, text: "Great seller, fast response and fair price!", time: "2 weeks ago" },
     { name: "Kim Sreypich", rating: 5, text: "Item was exactly as described. Recommended!", time: "1 month ago" },
@@ -103,7 +100,7 @@ function Profile() {
               </div>
             </div>
             <div className="profile-actions">
-              <Link to="/profile/edit" className="profile-edit-btn">
+              <Link href="/profile/edit" className="profile-edit-btn">
                 <FaEdit /> Edit Profile
               </Link>
               <button className="profile-logout-btn" onClick={handleLogout}>
@@ -185,13 +182,13 @@ function Profile() {
 
         {/* Quick links */}
         <div className="profile-quick-links">
-          <Link to="/my-products" className="profile-quick-link">
+          <Link href="/my-products" className="profile-quick-link">
             <FaStore /> My Products
           </Link>
-          <Link to="/wishlist" className="profile-quick-link">
+          <Link href="/wishlist" className="profile-quick-link">
             <FaStar /> Wishlist
           </Link>
-          <Link to="/chat" className="profile-quick-link">
+          <Link href="/chat" className="profile-quick-link">
             <FaEnvelope /> Messages
           </Link>
         </div>

@@ -8,7 +8,6 @@
 
 import { categories, conditions, universities } from "../../data/products";
 import { FaFilter, FaTimes } from "react-icons/fa";
-import "./FilterPanel.css";
 
 function FilterPanel({ filters, onFilterChange, onReset }) {
   // Helper: update a single filter field

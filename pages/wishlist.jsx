@@ -2,22 +2,19 @@
 // Shows products the user has saved to their wishlist (stored in LocalStorage).
 // Each product can be removed from the wishlist or viewed in detail.
 
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { FaHeart, FaTrash, FaEye } from "react-icons/fa";
-import { useApp } from "../../context/AppContext";
-import { getProductById } from "../../data/products";
-import { getUserById } from "../../data/users";
-import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
-import "./Wishlist.css";
+import { useApp } from "../src/context/AppContext";
+import { getProductById } from "../src/data/products";
+import { getUserById } from "../src/data/users";
+import Breadcrumb from "../src/components/Breadcrumb/Breadcrumb";
 
 function Wishlist() {
-  // Access wishlist functions from global context
   const { wishlist, removeFromWishlist } = useApp();
 
-  // Get the actual product objects from the wishlist IDs
   const wishlistProducts = wishlist
     .map((id) => getProductById(id))
-    .filter((p) => p !== null); // Remove any nulls (products that no longer exist)
+    .filter((p) => p !== null);
 
   return (
     <div className="wishlist page-fade">
@@ -46,7 +43,7 @@ function Wishlist() {
               return (
                 <div key={product.id} className="wishlist-card">
                   {/* Image */}
-                  <Link to={`/product/${product.id}`}>
+                  <Link href={`/product/${product.id}`}>
                     <img
                       src={product.images[0]}
                       alt={product.name}
@@ -57,7 +54,7 @@ function Wishlist() {
                   {/* Info */}
                   <div className="wishlist-card-body">
                     <span className="wishlist-card-category">{product.category}</span>
-                    <Link to={`/product/${product.id}`}>
+                    <Link href={`/product/${product.id}`}>
                       <h3 className="wishlist-card-name">{product.name}</h3>
                     </Link>
                     <p className="wishlist-card-price">${product.price}</p>
@@ -70,7 +67,7 @@ function Wishlist() {
 
                   {/* Actions */}
                   <div className="wishlist-card-actions">
-                    <Link to={`/product/${product.id}`} className="wishlist-card-view-btn">
+                    <Link href={`/product/${product.id}`} className="wishlist-card-view-btn">
                       <FaEye /> View
                     </Link>
                     <button
@@ -89,7 +86,7 @@ function Wishlist() {
             <FaHeart className="wishlist-empty-icon" />
             <h3>Your wishlist is empty</h3>
             <p>Save products you're interested in by clicking the heart icon.</p>
-            <Link to="/marketplace" className="wishlist-empty-btn">
+            <Link href="/marketplace" className="wishlist-empty-btn">
               Browse Marketplace
             </Link>
           </div>

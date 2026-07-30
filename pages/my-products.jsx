@@ -4,43 +4,36 @@
 // Each product has Edit, Delete, and View buttons.
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import {
   FaEdit, FaTrash, FaEye, FaStore, FaPlus,
 } from "react-icons/fa";
-import { useApp } from "../../context/AppContext";
-import { products as allProducts, getProductById } from "../../data/products";
-import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
-import Modal from "../../components/Modal/Modal";
-import "./MyProducts.css";
+import { useApp } from "../src/context/AppContext";
+import { products as allProducts, getProductById } from "../src/data/products";
+import Breadcrumb from "../src/components/Breadcrumb/Breadcrumb";
+import Modal from "../src/components/Modal/Modal";
 
 function MyProducts() {
   const { currentUser } = useApp();
 
-  // State: which tab is active
   const [activeTab, setActiveTab] = useState("selling");
-  // State: product to delete (for confirmation modal)
   const [deleteTarget, setDeleteTarget] = useState(null);
 
-  // If not logged in, show prompt
   if (!currentUser) {
     return (
       <div className="myproducts page-fade">
         <div className="myproducts-container">
           <div className="myproducts-not-logged-in">
             <h2>Please log in to view your products</h2>
-            <Link to="/login" className="myproducts-login-btn">Login</Link>
+            <Link href="/login" className="myproducts-login-btn">Login</Link>
           </div>
         </div>
       </div>
     );
   }
 
-  // Get the current user's products from dummy data
-  // In a real app, this would come from the backend
   const myProducts = allProducts.filter((p) => p.sellerId === currentUser.id);
 
-  // Filter products by the active tab
   const getFilteredProducts = () => {
     switch (activeTab) {
       case "selling":
@@ -50,7 +43,7 @@ function MyProducts() {
       case "reserved":
         return myProducts.filter((p) => p.status === "Reserved");
       case "draft":
-        return []; // No drafts in dummy data
+        return [];
       default:
         return myProducts;
     }
@@ -58,7 +51,6 @@ function MyProducts() {
 
   const filteredProducts = getFilteredProducts();
 
-  // Tab configuration
   const tabs = [
     { key: "selling", label: "Selling", count: myProducts.filter((p) => p.status === "Available").length },
     { key: "sold", label: "Sold", count: myProducts.filter((p) => p.status === "Sold").length },
@@ -83,7 +75,7 @@ function MyProducts() {
             <h1 className="myproducts-title">My Products</h1>
             <p className="myproducts-subtitle">Manage your listings</p>
           </div>
-          <Link to="/sell" className="myproducts-add-btn">
+          <Link href="/sell" className="myproducts-add-btn">
             <FaPlus /> Sell New Product
           </Link>
         </div>
@@ -129,7 +121,7 @@ function MyProducts() {
                 </div>
                 {/* Action buttons */}
                 <div className="myproducts-item-actions">
-                  <Link to={`/product/${product.id}`} className="myproducts-action-btn view">
+                  <Link href={`/product/${product.id}`} className="myproducts-action-btn view">
                     <FaEye /> View
                   </Link>
                   <button className="myproducts-action-btn edit">
@@ -150,7 +142,7 @@ function MyProducts() {
             <FaStore className="myproducts-empty-icon" />
             <h3>No products here</h3>
             <p>You don't have any products in this category yet.</p>
-            <Link to="/sell" className="myproducts-empty-btn">
+            <Link href="/sell" className="myproducts-empty-btn">
               <FaPlus /> Sell a Product
             </Link>
           </div>

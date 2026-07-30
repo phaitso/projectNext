@@ -2,23 +2,23 @@
 // Gallery + sticky info panel, rating, old price, related products, recently viewed.
 
 import { useState, useEffect } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import {
   FaHeart, FaComment, FaShare, FaFlag, FaMapMarkerAlt, FaStar,
   FaCheckCircle, FaClock, FaTimesCircle, FaArrowLeft, FaEye,
   FaShieldAlt, FaArrowRight,
 } from "react-icons/fa";
-import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
-import Modal from "../../components/Modal/Modal";
-import ProductCard from "../../components/ProductCard/ProductCard";
-import { getProductById, getRelatedProducts } from "../../data/products";
-import { getUserById } from "../../data/users";
-import { useApp } from "../../context/AppContext";
-import "./ProductDetail.css";
+import Breadcrumb from "../../src/components/Breadcrumb/Breadcrumb";
+import Modal from "../../src/components/Modal/Modal";
+import ProductCard from "../../src/components/ProductCard/ProductCard";
+import { getProductById, getRelatedProducts } from "../../src/data/products";
+import { getUserById } from "../../src/data/users";
+import { useApp } from "../../src/context/AppContext";
 
 function ProductDetail() {
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const router = useRouter();
+  const { id } = router.query;
   const { isInWishlist, toggleWishlist, addToRecentlyViewed, recentlyViewed } = useApp();
 
   const [selectedImage, setSelectedImage] = useState(0);
@@ -26,7 +26,7 @@ function ProductDetail() {
   const [reportReason, setReportReason] = useState("");
   const [reportSubmitted, setReportSubmitted] = useState(false);
 
-  const product = getProductById(id);
+  const product = id ? getProductById(id) : null;
   const seller = product ? getUserById(product.sellerId) : null;
   const relatedProducts = product ? getRelatedProducts(product.id, 5) : [];
 
@@ -58,14 +58,14 @@ function ProductDetail() {
     alert("Link copied to clipboard!");
   };
 
-  if (!product) {
+  if (!router.isReady || !product) {
     return (
       <div className="productdetail page-fade">
         <div className="container">
           <div className="productdetail-notfound">
             <h2>Product not found</h2>
             <p>This product may have been removed or doesn't exist.</p>
-            <Link to="/marketplace" className="productdetail-back-btn">
+            <Link href="/marketplace" className="productdetail-back-btn">
               <FaArrowLeft /> Back to Marketplace
             </Link>
           </div>
@@ -177,7 +177,7 @@ function ProductDetail() {
 
               {/* Actions */}
               <div className="productdetail-actions">
-                <Link to="/chat" className="productdetail-btn-chat">
+                <Link href="/chat" className="productdetail-btn-chat">
                   <FaComment /> Chat Seller
                 </Link>
                 <button
@@ -230,7 +230,7 @@ function ProductDetail() {
                   <span>{seller.productsBought} Bought</span>
                 </div>
               </div>
-              <Link to="/chat" className="productdetail-seller-contact">
+              <Link href="/chat" className="productdetail-seller-contact">
                 <FaComment /> Contact
               </Link>
             </div>
@@ -262,7 +262,7 @@ function ProductDetail() {
           <div className="productdetail-related">
             <div className="productdetail-sec-head">
               <h3 className="productdetail-sec-title">Related Products</h3>
-              <Link to={`/marketplace?category=${encodeURIComponent(product.category)}`} className="productdetail-sec-link">
+              <Link href={`/marketplace?category=${encodeURIComponent(product.category)}`} className="productdetail-sec-link">
                 View All <FaArrowRight />
               </Link>
             </div>

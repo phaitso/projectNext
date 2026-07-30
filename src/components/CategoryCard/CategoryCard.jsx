@@ -2,14 +2,13 @@
 // Circular icon category card — minimal, clean.
 // Props: category, icon, count
 
-import { useNavigate } from "react-router-dom";
-import "./CategoryCard.css";
+import { useRouter } from "next/router";
 
 function CategoryCard({ category, icon, count }) {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleClick = () => {
-    navigate(`/marketplace?category=${encodeURIComponent(category)}`);
+    router.push(`/marketplace?category=${encodeURIComponent(category)}`);
   };
 
   return (

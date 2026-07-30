@@ -4,11 +4,9 @@
 // admin rights, service fee, and user conduct.
 
 import { FaCheckCircle, FaTimesCircle, FaShieldAlt, FaHandshake, FaPercentage, FaUserShield } from "react-icons/fa";
-import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
-import "./Terms.css";
+import Breadcrumb from "../src/components/Breadcrumb/Breadcrumb";
 
 function Terms() {
-  // Terms sections - each has an icon, title, and description
   const terms = [
     {
       icon: <FaUserShield />,

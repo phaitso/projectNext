@@ -2,11 +2,9 @@
 // Explains the mission, vision, objectives, benefits, and purpose of Student Marketplace.
 
 import { FaBullseye, FaEye, FaRocket, FaCheckCircle, FaHeart, FaUsers, FaShieldAlt } from "react-icons/fa";
-import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
-import "./About.css";
+import Breadcrumb from "../src/components/Breadcrumb/Breadcrumb";
 
 function About() {
-  // Mission, vision, objectives content
   const sections = [
     {
       icon: <FaBullseye />,
@@ -25,7 +23,6 @@ function About() {
     },
   ];
 
-  // Benefits list
   const benefits = [
     { icon: <FaShieldAlt />, title: "Safe Trading", desc: "Only verified university students can participate." },
     { icon: <FaUsers />, title: "Student Community", desc: "Connect with peers from 5 universities across Cambodia." },

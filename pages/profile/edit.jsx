@@ -3,18 +3,17 @@
 // Fields: photo, name, phone, bio, email.
 // Changes are saved to LocalStorage via the AppContext.
 
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { FaSave, FaImage, FaArrowLeft } from "react-icons/fa";
-import { useApp } from "../../context/AppContext";
-import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
-import "./EditProfile.css";
+import { useApp } from "../../src/context/AppContext";
+import Breadcrumb from "../../src/components/Breadcrumb/Breadcrumb";
 
 function EditProfile() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { currentUser, updateProfile } = useApp();
 
-  // State: form data initialized from current user
   const [formData, setFormData] = useState({
     name: currentUser?.name || "",
     phone: currentUser?.phone || "",
@@ -22,21 +21,22 @@ function EditProfile() {
     email: currentUser?.email || "",
   });
 
-  // State: image preview
   const [imagePreview, setImagePreview] = useState(currentUser?.avatar || "");
 
-  // If no user is logged in, redirect to login
+  useEffect(() => {
+    if (!currentUser) {
+      router.push("/login");
+    }
+  }, [currentUser, router]);
+
   if (!currentUser) {
-    navigate("/login");
     return null;
   }
 
-  // Handle input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle image upload
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -46,16 +46,13 @@ function EditProfile() {
     }
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Call updateProfile with the new data including the avatar
     updateProfile({
       ...formData,
       avatar: imagePreview,
     });
-    // Navigate back to profile page
-    navigate("/profile");
+    router.push("/profile");
   };
 
   return (
@@ -71,7 +68,7 @@ function EditProfile() {
         />
 
         {/* Back link */}
-        <Link to="/profile" className="editprofile-back">
+        <Link href="/profile" className="editprofile-back">
           <FaArrowLeft /> Back to Profile
         </Link>
 

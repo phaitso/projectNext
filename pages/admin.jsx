@@ -2,18 +2,17 @@
 // SaaS-style admin panel: overview, analytics, tables, management tabs.
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import {
   FaUsers, FaBox, FaFlag, FaShoppingBag, FaDollarSign,
   FaEye, FaTrash, FaBan, FaChartBar, FaClock, FaTachometerAlt,
   FaStore, FaBell, FaChevronRight, FaCheckCircle, FaTimesCircle,
   FaExclamationTriangle, FaArrowUp, FaArrowDown,
 } from "react-icons/fa";
-import { users } from "../../data/users";
-import { products, categories } from "../../data/products";
-import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
-import Modal from "../../components/Modal/Modal";
-import "./AdminDashboard.css";
+import { users } from "../src/data/users";
+import { products, categories } from "../src/data/products";
+import Breadcrumb from "../src/components/Breadcrumb/Breadcrumb";
+import Modal from "../src/components/Modal/Modal";
 
 function AdminDashboard() {
   const [activeSection, setActiveSection] = useState("overview");
@@ -44,7 +43,6 @@ function AdminDashboard() {
     { action: "User suspended", user: "Unknown", time: "2d ago", icon: <FaBan />, color: "error" },
   ];
 
-  // Chart data (CSS bars)
   const monthlySales = [
     { m: "Jan", v: 45 }, { m: "Feb", v: 62 }, { m: "Mar", v: 58 },
     { m: "Apr", v: 71 }, { m: "May", v: 89 }, { m: "Jun", v: 76 },
@@ -108,7 +106,7 @@ function AdminDashboard() {
               </button>
             ))}
           </nav>
-          <Link to="/" className="admin-sidebar-back">
+          <Link href="/" className="admin-sidebar-back">
             <FaChevronRight /> Back to Marketplace
           </Link>
         </aside>

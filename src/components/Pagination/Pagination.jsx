@@ -6,7 +6,6 @@
 //   - onPageChange: callback function called with the new page number
 
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import "./Pagination.css";
 
 function Pagination({ currentPage, totalPages, onPageChange }) {
   // Don't show pagination if there's only one page

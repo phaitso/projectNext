@@ -4,7 +4,7 @@
 //   - size: "small", "medium", or "large" (default: "medium")
 //   - message: optional text to display below the spinner
 
-import "./LoadingSpinner.css";
+
 
 function LoadingSpinner({ size = "medium", message = "" }) {
   return (

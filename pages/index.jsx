@@ -4,7 +4,8 @@
 // → Books → Electronics → Recently Posted → Safety tips → Stats → Footer
 
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import {
   FaBook, FaLaptop, FaMobileAlt, FaTabletAlt, FaCalculator, FaPencilAlt,
   FaPenNib, FaShoppingBag, FaTshirt, FaBolt, FaChair, FaGem,
@@ -12,25 +13,24 @@ import {
   FaSearch, FaArrowRight, FaShieldAlt, FaUsers, FaBoxOpen, FaStar,
   FaTag, FaFireAlt, FaClock, FaGraduationCap,
 } from "react-icons/fa";
-import ProductCard from "../../components/ProductCard/ProductCard";
-import CategoryCard from "../../components/CategoryCard/CategoryCard";
-import { useApp } from "../../context/AppContext";
-import { getProductById } from "../../data/products";
+import ProductCard from "../src/components/ProductCard/ProductCard";
+import CategoryCard from "../src/components/CategoryCard/CategoryCard";
+import { useApp } from "../src/context/AppContext";
+import { getProductById } from "../src/data/products";
 import {
   getFeaturedProducts, getLatestProducts, products, categories,
   getProductsByCategory, getProductsByCategories,
-} from "../../data/products";
-import "./Home.css";
+} from "../src/data/products";
 
 function Home() {
   const { recentlyViewed } = useApp();
   const [query, setQuery] = useState("");
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (query.trim()) navigate(`/marketplace?search=${encodeURIComponent(query)}`);
-    else navigate("/marketplace");
+    if (query.trim()) router.push(`/marketplace?search=${encodeURIComponent(query)}`);
+    else router.push("/marketplace");
   };
 
   const trending = getFeaturedProducts().slice(0, 10);
@@ -86,7 +86,7 @@ function Home() {
           <div className="home-search-cats">
             <span>Popular:</span>
             {categories.slice(0, 5).map((cat) => (
-              <button key={cat} onClick={() => navigate(`/marketplace?category=${encodeURIComponent(cat)}`)}>
+              <button key={cat} onClick={() => router.push(`/marketplace?category=${encodeURIComponent(cat)}`)}>
                 {cat}
               </button>
             ))}
@@ -102,7 +102,7 @@ function Home() {
               <h2 className="section-title">Browse Categories</h2>
               <p className="section-subtitle">{categories.length} categories to explore</p>
             </div>
-            <Link to="/marketplace" className="home-link">All Products <FaArrowRight /></Link>
+            <Link href="/marketplace" className="home-link">All Products <FaArrowRight /></Link>
           </div>
           <div className="home-cat-scroll">
             {categories.map((cat) => (
@@ -120,7 +120,7 @@ function Home() {
               <h2 className="section-title"><FaFireAlt className="home-sec-icon" /> Trending Now</h2>
               <p className="section-subtitle">Most viewed items this week</p>
             </div>
-            <Link to="/marketplace" className="home-link">View All <FaArrowRight /></Link>
+            <Link href="/marketplace" className="home-link">View All <FaArrowRight /></Link>
           </div>
           <div className="hscroll home-hscroll">
             {trending.map((product) => (
@@ -140,7 +140,7 @@ function Home() {
               <h2 className="section-title"><FaTag className="home-sec-icon" /> Student Deals</h2>
               <p className="section-subtitle">Highest discounts across all categories</p>
             </div>
-            <Link to="/marketplace" className="home-link">View All <FaArrowRight /></Link>
+            <Link href="/marketplace" className="home-link">View All <FaArrowRight /></Link>
           </div>
           <div className="home-prod-grid">
             {deals.map((product) => (
@@ -158,7 +158,7 @@ function Home() {
               <h2 className="section-title">Books & Textbooks</h2>
               <p className="section-subtitle">Save on course materials</p>
             </div>
-            <Link to="/marketplace?category=Books" className="home-link">View All <FaArrowRight /></Link>
+            <Link href="/marketplace?category=Books" className="home-link">View All <FaArrowRight /></Link>
           </div>
           <div className="hscroll home-hscroll">
             {books.map((product) => (
@@ -178,7 +178,7 @@ function Home() {
               <h2 className="section-title">Electronics</h2>
               <p className="section-subtitle">Laptops, phones, tablets and more</p>
             </div>
-            <Link to="/marketplace?category=Laptop" className="home-link">View All <FaArrowRight /></Link>
+            <Link href="/marketplace?category=Laptop" className="home-link">View All <FaArrowRight /></Link>
           </div>
           <div className="home-prod-grid">
             {electronics.slice(0, 5).map((product) => (
@@ -196,7 +196,7 @@ function Home() {
               <h2 className="section-title"><FaClock className="home-sec-icon" /> Recently Posted</h2>
               <p className="section-subtitle">Newest additions to the marketplace</p>
             </div>
-            <Link to="/marketplace?sort=newest" className="home-link">View All <FaArrowRight /></Link>
+            <Link href="/marketplace?sort=newest" className="home-link">View All <FaArrowRight /></Link>
           </div>
           <div className="home-prod-grid">
             {latest.map((product) => (

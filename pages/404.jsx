@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { FaHome, FaSearch, FaArrowLeft } from "react-icons/fa";
-import "./NotFound.css";
 
 function NotFound() {
   return (
@@ -13,14 +12,14 @@ function NotFound() {
           Let's get you back to browsing.
         </p>
         <div className="notfound-actions">
-          <Link to="/" className="notfound-btn-primary">
+          <Link href="/" className="notfound-btn-primary">
             <FaHome /> Back to Home
           </Link>
-          <Link to="/marketplace" className="notfound-btn-secondary">
+          <Link href="/marketplace" className="notfound-btn-secondary">
             <FaSearch /> Browse Marketplace
           </Link>
         </div>
-        <Link to="/" className="notfound-back">
+        <Link href="/" className="notfound-back">
           <FaArrowLeft /> Return to safety
         </Link>
       </div>

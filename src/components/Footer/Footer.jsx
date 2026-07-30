@@ -2,12 +2,10 @@
 // The footer appears at the bottom of every page.
 // Contains: logo, quick links, contact info, social media icons, and copyright.
 
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { FaStore, FaFacebookF, FaInstagram, FaTelegram, FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
-import "./Footer.css";
 
 function Footer() {
-  // Get current year for the copyright text
   const currentYear = new Date().getFullYear();
 
   return (
@@ -15,7 +13,7 @@ function Footer() {
       <div className="footer-container">
         {/* ===== Column 1: Brand & Description ===== */}
         <div className="footer-section">
-          <Link to="/" className="footer-logo">
+          <Link href="/" className="footer-logo">
             <FaStore className="footer-logo-icon" />
             <span>Student<span className="footer-logo-accent">Market</span></span>
           </Link>
@@ -35,11 +33,11 @@ function Footer() {
         <div className="footer-section">
           <h4 className="footer-title">Quick Links</h4>
           <ul className="footer-links">
-            <li><Link to="/marketplace">Marketplace</Link></li>
-            <li><Link to="/sell">Sell Product</Link></li>
-            <li><Link to="/wishlist">Wishlist</Link></li>
-            <li><Link to="/chat">Chat</Link></li>
-            <li><Link to="/my-products">My Products</Link></li>
+            <li><Link href="/marketplace">Marketplace</Link></li>
+            <li><Link href="/sell">Sell Product</Link></li>
+            <li><Link href="/wishlist">Wishlist</Link></li>
+            <li><Link href="/chat">Chat</Link></li>
+            <li><Link href="/my-products">My Products</Link></li>
           </ul>
         </div>
 
@@ -47,11 +45,11 @@ function Footer() {
         <div className="footer-section">
           <h4 className="footer-title">Information</h4>
           <ul className="footer-links">
-            <li><Link to="/about">About Us</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
-            <li><Link to="/faq">Help Center</Link></li>
-            <li><Link to="/terms">Terms & Rules</Link></li>
-            <li><Link to="/admin">Admin Dashboard</Link></li>
+            <li><Link href="/about">About Us</Link></li>
+            <li><Link href="/contact">Contact</Link></li>
+            <li><Link href="/faq">Help Center</Link></li>
+            <li><Link href="/terms">Terms & Rules</Link></li>
+            <li><Link href="/admin">Admin Dashboard</Link></li>
           </ul>
         </div>
 

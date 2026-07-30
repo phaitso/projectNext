@@ -3,19 +3,15 @@
 // Shows an unread count badge. Used in the navbar.
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { FaBell, FaComment, FaHeart, FaCheck, FaFlag, FaInfoCircle } from "react-icons/fa";
 import { notifications as dummyNotifications } from "../../data/notifications";
-import "./NotificationBell.css";
 
 function NotificationBell() {
-  // State: is the dropdown open?
   const [open, setOpen] = useState(false);
 
-  // Count unread notifications
   const unread = dummyNotifications.filter((n) => !n.read).length;
 
-  // Map notification type to icon
   const getIcon = (type) => {
     switch (type) {
       case "message": return <FaComment />;
@@ -59,7 +55,7 @@ function NotificationBell() {
             ))}
           </div>
           <Link
-            to="/notifications"
+            href="/notifications"
             className="notifbell-viewall"
             onClick={() => setOpen(false)}
           >

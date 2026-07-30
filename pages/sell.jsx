@@ -2,20 +2,19 @@
 // Professional upload: drag & drop, multi-image, live preview, progress, draft saving.
 
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 import {
   FaCheckCircle, FaImage, FaUpload, FaTrash, FaTimes,
   FaSave, FaCloudUploadAlt,
 } from "react-icons/fa";
-import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
-import Modal from "../../components/Modal/Modal";
-import { categories, conditions, universities } from "../../data/products";
-import "./SellProduct.css";
+import Breadcrumb from "../src/components/Breadcrumb/Breadcrumb";
+import Modal from "../src/components/Modal/Modal";
+import { categories, conditions, universities } from "../src/data/products";
 
 const DRAFT_KEY = "sm_sell_draft";
 
 function SellProduct() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const fileInputRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -31,7 +30,6 @@ function SellProduct() {
   const [errors, setErrors] = useState({});
   const [draftSaved, setDraftSaved] = useState(false);
 
-  // Load draft on mount
   useEffect(() => {
     const draft = localStorage.getItem(DRAFT_KEY);
     if (draft) {
@@ -43,7 +41,6 @@ function SellProduct() {
     }
   }, []);
 
-  // Auto-save draft (debounced via effect)
   useEffect(() => {
     if (!formData.name && images.length === 0) return;
     const t = setTimeout(() => {
@@ -75,7 +72,6 @@ function SellProduct() {
       reader.readAsDataURL(file);
     });
 
-    // Simulate progress
     const interval = setInterval(() => {
       setProgress((p) => {
         if (p >= 100) { clearInterval(interval); setUploading(false); return 100; }
@@ -322,7 +318,7 @@ function SellProduct() {
             You can manage it from your My Products page.
           </p>
           <div className="sellproduct-success-actions">
-            <button className="sellproduct-success-btn-primary" onClick={() => navigate("/my-products")}>
+            <button className="sellproduct-success-btn-primary" onClick={() => router.push("/my-products")}>
               View My Products
             </button>
             <button className="sellproduct-success-btn-secondary" onClick={() => { handleReset(); setShowSuccess(false); }}>

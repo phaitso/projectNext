@@ -2,43 +2,42 @@
 // Modern browsing: filter chips, floating sort, premium grid.
 
 import { useState, useEffect, useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useRouter } from "next/router";
 import { FaSearch, FaSlidersH, FaTimes, FaSort, FaChevronDown } from "react-icons/fa";
-import FilterPanel from "../../components/FilterPanel/FilterPanel";
-import ProductCard from "../../components/ProductCard/ProductCard";
-import Pagination from "../../components/Pagination/Pagination";
-import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
-import { products, categories, conditions, universities } from "../../data/products";
-import "./Marketplace.css";
+import FilterPanel from "../src/components/FilterPanel/FilterPanel";
+import ProductCard from "../src/components/ProductCard/ProductCard";
+import Pagination from "../src/components/Pagination/Pagination";
+import Breadcrumb from "../src/components/Breadcrumb/Breadcrumb";
+import { products, categories, conditions, universities } from "../src/data/products";
 
 function Marketplace() {
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
+  const { search, category, sort } = router.query;
   const [filters, setFilters] = useState({
-    search: searchParams.get("search") || "",
-    category: searchParams.get("category") || "",
+    search: search || "",
+    category: category || "",
     minPrice: "",
     maxPrice: "",
     condition: "",
     university: "",
-    sort: searchParams.get("sort") || "newest",
+    sort: sort || "newest",
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [showFilters, setShowFilters] = useState(false);
   const [sortOpen, setSortOpen] = useState(false);
-  // Brief skeleton feedback so filtering doesn't feel like an instant swap —
-  // pure presentation, doesn't touch the filtering logic below.
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const productsPerPage = 12;
 
   useEffect(() => {
+    if (!router.isReady) return;
     setFilters((prev) => ({
       ...prev,
-      search: searchParams.get("search") || "",
-      category: searchParams.get("category") || "",
-      sort: searchParams.get("sort") || "newest",
+      search: router.query.search || "",
+      category: router.query.category || "",
+      sort: router.query.sort || "newest",
     }));
-  }, [searchParams]);
+  }, [router.query.search, router.query.category, router.query.sort, router.isReady]);
 
   const filteredProducts = useMemo(() => {
     let result = [...products];

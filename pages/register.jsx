@@ -2,14 +2,14 @@
 // Floating-label form pattern.
 
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { FaImage, FaUserPlus } from "react-icons/fa";
-import { useApp } from "../../context/AppContext";
-import { universities } from "../../data/products";
-import "./Register.css";
+import { useApp } from "../src/context/AppContext";
+import { universities } from "../src/data/products";
 
 function Register() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { register } = useApp();
 
   const [formData, setFormData] = useState({
@@ -71,7 +71,7 @@ function Register() {
     });
 
     if (result.success) {
-      navigate("/");
+      router.push("/");
     } else {
       setError(result.message);
     }
@@ -215,7 +215,7 @@ function Register() {
           </form>
 
           <p className="register-login-text">
-            Already have an account? <Link to="/login" className="register-login-link">Login here</Link>
+            Already have an account? <Link href="/login" className="register-login-link">Login here</Link>
           </p>
         </div>
       </div>

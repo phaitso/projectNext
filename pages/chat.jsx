@@ -2,15 +2,14 @@
 // Modern messenger with product preview, typing indicator, and meet-up planning.
 
 import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import {
   FaSearch, FaPaperPlane, FaSmile, FaComments, FaMapMarkerAlt,
   FaCalendarAlt, FaImage, FaCheck, FaCheckDouble,
 } from "react-icons/fa";
-import { conversations as dummyConversations } from "../../data/messages";
-import { getProductById } from "../../data/products";
-import ChatPreview from "../../components/ChatPreview/ChatPreview";
-import "./Chat.css";
+import { conversations as dummyConversations } from "../src/data/messages";
+import { getProductById } from "../src/data/products";
+import ChatPreview from "../src/components/ChatPreview/ChatPreview";
 
 function Chat() {
   const [conversations, setConversations] = useState(dummyConversations);
@@ -25,7 +24,6 @@ function Chat() {
   const messagesEndRef = useRef(null);
   const activeConversation = conversations.find((c) => c.id === activeId);
 
-  // Simulated linked product for the first conversation
   const linkedProduct = activeId === "c1" ? getProductById("p4") : null;
 
   useEffect(() => {
@@ -56,7 +54,6 @@ function Chat() {
     setMessage("");
     setShowEmojis(false);
 
-    // Simulated typing reply
     setIsTyping(true);
     setTimeout(() => {
       setIsTyping(false);
@@ -182,7 +179,7 @@ function Chat() {
               <div className="chat-messages">
                 {/* Linked product preview */}
                 {linkedProduct && (
-                  <Link to={`/product/${linkedProduct.id}`} className="chat-product-preview">
+                  <Link href={`/product/${linkedProduct.id}`} className="chat-product-preview">
                     <img src={linkedProduct.images[0]} alt={linkedProduct.name} />
                     <div className="chat-product-info">
                       <span className="chat-product-name">{linkedProduct.name}</span>

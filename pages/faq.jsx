@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { FaChevronDown, FaQuestionCircle, FaEnvelope } from "react-icons/fa";
-import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
-import "./FAQ.css";
+import Breadcrumb from "../src/components/Breadcrumb/Breadcrumb";
 
 const faqCategories = [
   {
@@ -112,7 +111,7 @@ function FAQ() {
         <div className="faq-contact-cta">
           <h3>Still have questions?</h3>
           <p>Our team is here to help. Reach out and we'll respond within a day.</p>
-          <Link to="/contact" className="faq-contact-btn">
+          <Link href="/contact" className="faq-contact-btn">
             <FaEnvelope /> Contact Support
           </Link>
         </div>

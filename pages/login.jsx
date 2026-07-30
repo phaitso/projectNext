@@ -2,13 +2,13 @@
 // Floating-label form pattern.
 
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { FaSignInAlt } from "react-icons/fa";
-import { useApp } from "../../context/AppContext";
-import "./Login.css";
+import { useApp } from "../src/context/AppContext";
 
 function Login() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { login } = useApp();
 
   const [email, setEmail] = useState("");
@@ -23,7 +23,7 @@ function Login() {
     const result = login(email, password);
     if (result.success) {
       if (remember) localStorage.setItem("sm_remember", "true");
-      navigate("/");
+      router.push("/");
     } else {
       setError(result.message || "Invalid credentials");
     }
@@ -94,7 +94,7 @@ function Login() {
           </form>
 
           <p className="login-register-text">
-            Don't have an account? <Link to="/register" className="login-register-link">Register here</Link>
+            Don't have an account? <Link href="/register" className="login-register-link">Register here</Link>
           </p>
 
           <div className="login-demo-hint">

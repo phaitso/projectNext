@@ -6,7 +6,6 @@
 //   - onClick: callback when the conversation is clicked
 
 import { FaCircle } from "react-icons/fa";
-import "./ChatPreview.css";
 
 function ChatPreview({ conversation, isActive, onClick }) {
   // Format the time to show only HH:MM

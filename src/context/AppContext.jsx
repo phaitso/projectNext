@@ -21,33 +21,28 @@ export const useApp = () => {
 
 // AppProvider component - wraps the entire app so all components can access the context
 export const AppProvider = ({ children }) => {
-  // ===== User State =====
-  // On first load, check if a user is already logged in (stored in LocalStorage)
-  const [currentUser, setCurrentUser] = useState(() => {
-    const saved = localStorage.getItem("sm_currentUser");
-    return saved ? JSON.parse(saved) : null;
-  });
+  const [currentUser, setCurrentUser] = useState(null);
+  const [wishlist, setWishlist] = useState([]);
+  const [recentlyViewed, setRecentlyViewed] = useState([]);
+  const [registeredUsers, setRegisteredUsers] = useState(dummyUsers);
+  const [hydrated, setHydrated] = useState(false);
 
-  // ===== Wishlist State =====
-  // Array of product IDs that the user has favorited
-  const [wishlist, setWishlist] = useState(() => {
-    const saved = localStorage.getItem("sm_wishlist");
-    return saved ? JSON.parse(saved) : [];
-  });
+  // Load from localStorage on the client side only (avoids SSR crash)
+  useEffect(() => {
+    const savedUser = localStorage.getItem("sm_currentUser");
+    if (savedUser) setCurrentUser(JSON.parse(savedUser));
 
-  // ===== Recently Viewed Products =====
-  // Array of product IDs, most recent first
-  const [recentlyViewed, setRecentlyViewed] = useState(() => {
-    const saved = localStorage.getItem("sm_recentlyViewed");
-    return saved ? JSON.parse(saved) : [];
-  });
+    const savedWishlist = localStorage.getItem("sm_wishlist");
+    if (savedWishlist) setWishlist(JSON.parse(savedWishlist));
 
-  // ===== Registered Users =====
-  // All registered users (starts with dummy data, new registrations are added)
-  const [registeredUsers, setRegisteredUsers] = useState(() => {
-    const saved = localStorage.getItem("sm_users");
-    return saved ? JSON.parse(saved) : dummyUsers;
-  });
+    const savedRecent = localStorage.getItem("sm_recentlyViewed");
+    if (savedRecent) setRecentlyViewed(JSON.parse(savedRecent));
+
+    const savedUsers = localStorage.getItem("sm_users");
+    if (savedUsers) setRegisteredUsers(JSON.parse(savedUsers));
+
+    setHydrated(true);
+  }, []);
 
   // ===== useEffect: Persist state to LocalStorage whenever it changes =====
   // These effects run automatically whenever the state values change.

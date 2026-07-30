@@ -8,15 +8,12 @@ import {
   FaComment, FaHeart, FaCheck, FaFlag, FaInfoCircle,
   FaCheckDouble, FaBell,
 } from "react-icons/fa";
-import { notifications as dummyNotifications } from "../../data/notifications";
-import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
-import "./Notifications.css";
+import { notifications as dummyNotifications } from "../src/data/notifications";
+import Breadcrumb from "../src/components/Breadcrumb/Breadcrumb";
 
 function Notifications() {
-  // State: notifications list (start with dummy data)
   const [notifications, setNotifications] = useState(dummyNotifications);
 
-  // Mark a single notification as read
   const markAsRead = (id) => {
     setNotifications(
       notifications.map((n) =>
@@ -25,12 +22,10 @@ function Notifications() {
     );
   };
 
-  // Mark all notifications as read
   const markAllAsRead = () => {
     setNotifications(notifications.map((n) => ({ ...n, read: true })));
   };
 
-  // Map notification type to icon
   const getIcon = (type) => {
     switch (type) {
       case "message": return <FaComment />;
@@ -41,7 +36,6 @@ function Notifications() {
     }
   };
 
-  // Format time to a readable string
   const formatTime = (timeStr) => {
     const date = new Date(timeStr);
     const now = new Date();
@@ -54,7 +48,6 @@ function Notifications() {
     return "Just now";
   };
 
-  // Count unread
   const unreadCount = notifications.filter((n) => !n.read).length;
 
   return (

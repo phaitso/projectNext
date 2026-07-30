@@ -1,11 +1,10 @@
 // ===== ProductCard Component =====
 // Editorial card: large image, clean typography, seller trust row.
 
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { FaHeart, FaMapMarkerAlt, FaStar, FaRegEye, FaUniversity, FaCheckCircle } from "react-icons/fa";
 import { useApp } from "../../context/AppContext";
 import { getUserById } from "../../data/users";
-import "./ProductCard.css";
 
 function ProductCard({ product }) {
   const { isInWishlist, toggleWishlist } = useApp();
@@ -16,7 +15,7 @@ function ProductCard({ product }) {
   return (
     <div className="pc">
       <div className="pc-img-wrap">
-        <Link to={`/product/${product.id}`}>
+        <Link href={`/product/${product.id}`}>
           <img src={product.images[0]} alt={product.name} className="pc-img" loading="lazy" />
         </Link>
         {product.discount > 0 && (
@@ -34,7 +33,7 @@ function ProductCard({ product }) {
         >
           <FaHeart />
         </button>
-        <Link to={`/product/${product.id}`} className="pc-quickview" aria-label="Quick view">
+        <Link href={`/product/${product.id}`} className="pc-quickview" aria-label="Quick view">
           <FaRegEye /> View Details
         </Link>
       </div>
@@ -45,7 +44,7 @@ function ProductCard({ product }) {
           <span className={`pc-condition pc-cond-${conditionClass}`}>{product.condition}</span>
         </div>
 
-        <Link to={`/product/${product.id}`}>
+        <Link href={`/product/${product.id}`}>
           <h3 className="pc-name">{product.name}</h3>
         </Link>
 
