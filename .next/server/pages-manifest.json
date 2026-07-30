@@ -7,5 +7,6 @@
   "/sell": "pages/sell.js",
   "/about": "pages/about.js",
   "/wishlist": "pages/wishlist.js",
-  "/chat": "pages/chat.js"
+  "/chat": "pages/chat.js",
+  "/contact": "pages/contact.js"
 }
