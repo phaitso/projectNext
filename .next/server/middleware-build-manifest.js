@@ -54,6 +54,11 @@ self.__BUILD_MANIFEST = {
       "static/chunks/main.js",
       "static/chunks/pages/marketplace.js"
     ],
+    "/my-products": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/my-products.js"
+    ],
     "/sell": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
