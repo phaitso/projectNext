@@ -10,5 +10,6 @@
   "/chat": "pages/chat.js",
   "/contact": "pages/contact.js",
   "/faq": "pages/faq.js",
-  "/terms": "pages/terms.js"
+  "/terms": "pages/terms.js",
+  "/admin": "pages/admin.js"
 }
