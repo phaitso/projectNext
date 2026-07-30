@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { AppProvider } from "../src/context/AppContext";
+import { AppProvider, useApp } from "../src/context/AppContext";
 import Navbar from "../src/components/Navbar/Navbar";
 import Footer from "../src/components/Footer/Footer";
 
@@ -51,9 +51,11 @@ function ScrollToTop() {
   return null;
 }
 
-export default function MyApp({ Component, pageProps }) {
+function MyAppContent({ Component, pageProps }) {
+  const { hydrated } = useApp();
+  if (!hydrated) return null;
   return (
-    <AppProvider>
+    <>
       <ScrollToTop />
       <div className="app">
         <Navbar />
@@ -62,6 +64,14 @@ export default function MyApp({ Component, pageProps }) {
         </main>
         <Footer />
       </div>
+    </>
+  );
+}
+
+export default function MyApp({ Component, pageProps }) {
+  return (
+    <AppProvider>
+      <MyAppContent Component={Component} pageProps={pageProps} />
     </AppProvider>
   );
 }
