@@ -5,11 +5,15 @@
 //   - isActive: whether this conversation is currently selected
 //   - onClick: callback when the conversation is clicked
 
+import { useState, useEffect } from "react";
 import { FaCircle } from "react-icons/fa";
 
 function ChatPreview({ conversation, isActive, onClick }) {
-  // Format the time to show only HH:MM
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
   const formatTime = (timeStr) => {
+    if (!mounted) return "";
     const date = new Date(timeStr);
     return date.toLocaleTimeString("en-US", {
       hour: "2-digit",

@@ -164,6 +164,7 @@ export const AppProvider = ({ children }) => {
     recentlyViewed,
     addToRecentlyViewed,
     registeredUsers,
+    hydrated,
   };
 
   // Return the Provider with the value and render children inside

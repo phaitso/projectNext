@@ -24,7 +24,7 @@ function Navbar() {
 
   const profileRef = useRef(null);
   const notifRef = useRef(null);
-  const { currentUser, logout, wishlist } = useApp();
+  const { currentUser, logout, wishlist, hydrated } = useApp();
   const router = useRouter();
 
   const unreadCount = notifs.filter((n) => !n.read).length;
@@ -85,6 +85,7 @@ function Navbar() {
   };
 
   const formatNotifTime = (timeStr) => {
+    if (!hydrated) return "";
     const date = new Date(timeStr);
     const now = new Date();
     const diffH = Math.floor((now - date) / (1000 * 60 * 60));
@@ -208,7 +209,7 @@ function Navbar() {
             </Link>
 
             {/* Profile */}
-            {currentUser ? (
+            {hydrated && currentUser ? (
               <div className="nb-profile" ref={profileRef}>
                 <button
                   className="nb-profile-btn"
@@ -237,9 +238,9 @@ function Navbar() {
                   </div>
                 )}
               </div>
-            ) : (
+            ) : hydrated ? (
               <Link href="/login" className="nb-login-btn">Sign In</Link>
-            )}
+            ) : null}
 
             <button
               className="nb-hamburger"

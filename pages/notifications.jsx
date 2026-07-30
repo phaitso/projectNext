@@ -3,7 +3,7 @@
 // Uses dummy data from data/notifications.js.
 // Unread notifications are highlighted. User can mark all as read.
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   FaComment, FaHeart, FaCheck, FaFlag, FaInfoCircle,
   FaCheckDouble, FaBell,
@@ -13,6 +13,9 @@ import Breadcrumb from "../src/components/Breadcrumb/Breadcrumb";
 
 function Notifications() {
   const [notifications, setNotifications] = useState(dummyNotifications);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => { setMounted(true); }, []);
 
   const markAsRead = (id) => {
     setNotifications(
@@ -37,6 +40,7 @@ function Notifications() {
   };
 
   const formatTime = (timeStr) => {
+    if (!mounted) return "";
     const date = new Date(timeStr);
     const now = new Date();
     const diffMs = now - date;

@@ -76,8 +76,13 @@ function Chat() {
   const emojis = ["😀", "😂", "❤️", "👍", "🎉", "🔥", "😊", "🙏", "💯", "😎", "✅", "🤝"];
   const addEmoji = (emoji) => { setMessage(message + emoji); setShowEmojis(false); };
 
-  const formatTime = (timeStr) =>
-    new Date(timeStr).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
+  const formatTime = (timeStr) => {
+    if (!mounted) return "";
+    return new Date(timeStr).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
+  };
 
   return (
     <div className="chat page-fade">
