@@ -11,5 +11,6 @@
   "/contact": "pages/contact.js",
   "/faq": "pages/faq.js",
   "/terms": "pages/terms.js",
-  "/admin": "pages/admin.js"
+  "/admin": "pages/admin.js",
+  "/my-products": "pages/my-products.js"
 }
