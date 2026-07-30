@@ -8,5 +8,7 @@
   "/about": "pages/about.js",
   "/wishlist": "pages/wishlist.js",
   "/chat": "pages/chat.js",
-  "/contact": "pages/contact.js"
+  "/contact": "pages/contact.js",
+  "/faq": "pages/faq.js",
+  "/terms": "pages/terms.js"
 }

@@ -39,6 +39,11 @@ self.__BUILD_MANIFEST = {
       "static/chunks/main.js",
       "static/chunks/pages/contact.js"
     ],
+    "/faq": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/faq.js"
+    ],
     "/marketplace": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
@@ -48,6 +53,11 @@ self.__BUILD_MANIFEST = {
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/sell.js"
+    ],
+    "/terms": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/terms.js"
     ],
     "/wishlist": [
       "static/chunks/webpack.js",
